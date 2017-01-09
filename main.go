@@ -16,7 +16,7 @@ type Options struct {
 	Database string   `short:"d" long:"database" description:"Database name" required:"true"`
 	Tables   []string `short:"t" long:"tables" description:"Tables to export" required:"true"`
 	SSLMode  string   `long:"ssl" description:"SSL mode (require|verify-full|verify-ca|disable)" default:"disable"`
-	Output   string   `short:"o" long:"output" description:"Output filename" default:"out.go"`
+	Output   string   `short:"o" long:"output" description:"Output filename"`
 }
 
 func main() {
@@ -54,7 +54,13 @@ func main() {
 		check(err)
 
 		fname, data := GetStruct(t, cols)
-		saveToFile(fname+".go", []byte(data))
+		if options.Output != "" {
+			fname = options.Output
+		} else {
+			fname += ".go"
+		}
+
+		saveToFile(fname, []byte(data))
 	}
 
 }
