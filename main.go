@@ -52,7 +52,9 @@ func main() {
 	for _, t := range options.Tables {
 		cols, err := columnList(db, t)
 		check(err)
-		saveToFile(t+".go", []byte(GetStruct(t, cols)))
+
+		fname, data := GetStruct(t, cols)
+		saveToFile(fname+".go", []byte(data))
 	}
 
 }

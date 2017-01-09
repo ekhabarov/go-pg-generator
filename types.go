@@ -69,14 +69,14 @@ var (
 	}
 )
 
-func GetStruct(tab string, cols []*Column) (s string) {
+func GetStruct(tab string, cols []*Column) (title string, s string) {
 	var body string
-	title := inflection.Singular(snake2Camel(tab))
+	title = inflection.Singular(snake2Camel(tab))
 	for _, c := range cols {
 		body += fmt.Sprintf("\t%s %s\n", snake2Camel(c.Name), pg2GoType(c))
 	}
 
-	return fmt.Sprintf(tpl, title, body)
+	return title, fmt.Sprintf(tpl, title, body)
 }
 
 func getMap(n bool) map[string]string {
