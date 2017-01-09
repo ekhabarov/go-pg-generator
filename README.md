@@ -3,12 +3,18 @@
 CLI tool creates Golang structs by table description from PostgreSQL database. 
 
 ### Dependencies
-
+#### For build
 ```
   go get github.com/jessevdk/go-flags
   go get github.com/lib/pq
   go get github.com/jinzhu/inflection
 ```
+#### For generated files
+`import "gopkg.in/guregu/null.v3"`
+Provides support for `null` values.
+
+`import "github.com/satori/go.uuid"`
+Provides support for `uuid.UUID` values.
 
 ### Arguments 
 
