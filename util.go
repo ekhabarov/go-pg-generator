@@ -20,7 +20,7 @@ func snake2Camel(word string) string {
 }
 
 func saveToFile(name string, b []byte) error {
-	f, err := os.OpenFile("./tmp/"+name+".go", os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0644)
+	f, err := os.OpenFile(name+".go", os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0644)
 	if err != nil {
 		return err
 	}

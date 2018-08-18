@@ -1,36 +1,38 @@
-## Go struct generator for PostgreSQL
+# Golang struct generator for PostgreSQL
 
-CLI tool creates Golang structs by table description from PostgreSQL database. 
+CLI tool for generation Golang structures by table definition from PostgreSQL.
 
-### Dependencies
-#### For build
+## Build
+Install Go vendor tool [govendor](https://github.com/kardianos/govendor) and run
 ```
-  go get github.com/jessevdk/go-flags
-  go get github.com/lib/pq
-  go get github.com/jinzhu/inflection
+make build
 ```
-#### For generated files
+
+
+## Dependencies
+### For generated files
 `import "gopkg.in/guregu/null.v3"`
 Provides support for `null` values.
 
 `import "github.com/satori/go.uuid"`
 Provides support for `uuid.UUID` values.
 
-### Arguments 
-
+##Help
 ```
 Usage:
   go-pg-generator [OPTIONS]
 
-  Application Options:
-    -s, --server=   Server name or IP address (default: 127.0.0.1)
-    -p, --port=     Port (default: 5432)
-    -u, --user=     Username
-    -d, --database= Database name
-    -t, --tables=   Tables to export
-        --ssl=      SSL mode (require|verify-full|verify-ca|disable) (default: disable)
-    -o, --output=   Output filename
+Application Options:
+  -s, --server=         Server name or IP address (default: 127.0.0.1)
+  -p, --port=           Port (default: 5432)
+  -u, --user=           Database user.
+  -w, --password=       Database password.
+  -d, --database=       Database name.
+  -t, --tables=         Tables to export.
+      --ssl=            SSL mode (require|verify-full|verify-ca|disable) (default: disable
+  -f, --file-per-table  Save each structure to its own .go file.
+      --package=        Package name for generated files.
 
-  Help Options:
-    -h, --help      Show this help message
+Help Options:
+  -h, --help            Show this help message
 ```
