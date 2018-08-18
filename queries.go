@@ -1,18 +1,18 @@
 package main
 
 const (
-	COLUMNS_QUERY = `
-	select 
+	ColumnsQuery = `
+	select
 		a.attname as col,
-		case 
-			when left(t.typname, 1) = '_' then right(t.typname, length(t.typname)-1) 
+		case
+			when left(t.typname, 1) = '_' then right(t.typname, length(t.typname)-1)
 			else t.typname
 		end,
-		(	select 
+		(	select
 				substring(pg_catalog.pg_get_expr(d.adbin, d.adrelid) for 128) as default
 			from pg_catalog.pg_attrdef d
-			where d.adrelid = a.attrelid 
-				and d.adnum = a.attnum 
+			where d.adrelid = a.attrelid
+				and d.adnum = a.attnum
 				and a.atthasdef
 		),
 		not a.attnotnull,

@@ -3,13 +3,13 @@ package main
 import "testing"
 
 type TestColumn struct {
-	col    *Column
+	col    *column
 	result string
 }
 
 func NewTC(t string, in, ia bool, r string) *TestColumn {
 	return &TestColumn{
-		&Column{
+		&column{
 			Type:    t,
 			IsNull:  in,
 			IsArray: ia},
@@ -120,7 +120,7 @@ func TestCovertTypes(t *testing.T) {
 	}
 
 	for _, c := range columns {
-		if pg2GoType(c.col) != c.result {
+		if convertType(c.col) != c.result {
 			t.Errorf("invalid typecast: pg type: name: %s, isnull: %t, isarray: %t  => go type: %s", c.col.Type, c.col.IsNull, c.col.IsArray, c.result)
 		}
 	}

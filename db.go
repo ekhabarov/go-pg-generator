@@ -7,7 +7,7 @@ import (
 	_ "github.com/lib/pq"
 )
 
-type Column struct {
+type column struct {
 	Name     string
 	Type     string
 	Default  *string
@@ -16,13 +16,14 @@ type Column struct {
 	Category string
 }
 
-func dbConnect(opts Options) (db *sql.DB, err error) {
-	db, err = sql.Open("postgres",
+func dbConnect(opts Options) (*sql.DB, error) {
+	db, err := sql.Open("postgres",
 		fmt.Sprintf(
-			"host=%s port=%d user=%s dbname=%s sslmode=%s\n",
+			"postgresql://%s:%s@%s:%d/%s?connect_timeout=10&application_name=gogen&sslmode=%s",
+			opts.User,
+			opts.Password,
 			opts.Host,
 			opts.Port,
-			opts.User,
 			opts.Database,
 			opts.SSLMode,
 		),
@@ -34,14 +35,14 @@ func dbConnect(opts Options) (db *sql.DB, err error) {
 	return db, nil
 }
 
-func columnList(db *sql.DB, tab string) (cols []*Column, err error) {
-	rows, err := db.Query(COLUMNS_QUERY, tab)
+func columnList(db *sql.DB, tab string) (cols []*column, err error) {
+	rows, err := db.Query(ColumnsQuery, tab)
 	if err != nil {
 		return nil, fmt.Errorf("unable to query data: %s", err)
 	}
 
 	for rows.Next() {
-		c := &Column{}
+		c := &column{}
 		err := rows.Scan(&c.Name, &c.Type, &c.Default, &c.IsNull, &c.IsArray, &c.Category)
 		if err != nil {
 			return nil, fmt.Errorf("unable to scan columns data: %s", err)

@@ -3,15 +3,12 @@ package main
 import (
 	"fmt"
 	"log"
-
-	"github.com/jinzhu/inflection"
 )
 
 const (
-	tpl = `package mrog
-
-type %s struct {
-%s}`
+	tpl = `type %s struct {
+%s}
+`
 )
 
 var (
@@ -69,34 +66,31 @@ var (
 	}
 )
 
-func GetStruct(tab string, cols []*Column) (title string, s string) {
+func getStruct(tab string, cols []*column) string {
 	var body string
-	title = inflection.Singular(snake2Camel(tab))
 	for _, c := range cols {
-		body += fmt.Sprintf("\t%s %s\n", snake2Camel(c.Name), pg2GoType(c))
+		body += fmt.Sprintf("\t%s %s `db:%s` // sqltype: %s\n",
+			snake2Camel(c.Name), convertType(c), c.Name, c.Type)
 	}
 
-	return title, fmt.Sprintf(tpl, title, body)
+	return fmt.Sprintf(tpl, snake2Camel(tab), body)
 }
 
 func getMap(n bool) map[string]string {
 	if n {
 		return nullableTypes
-	} else {
-		return nonNullableTypes
 	}
+	return nonNullableTypes
 }
 
-func pg2GoType(c *Column) (t string) {
-	if f, ok := getMap(c.IsNull)[c.Type]; ok {
-		t = f
-	} else {
-		log.Fatalf("unknown type: ", f)
+func convertType(c *column) string {
+	t, ok := getMap(c.IsNull)[c.Type]
+	if !ok {
+		log.Fatalln("unknown type: ", t)
 	}
 
 	if c.IsArray {
 		return "[]" + t
-	} else {
-		return t
 	}
+	return t
 }
