@@ -29,7 +29,7 @@ Application Options:
   -w, --password=       Database password.
   -d, --database=       Database name.
   -t, --tables=         Tables to export.
-      --ssl=            SSL mode (require|verify-full|verify-ca|disable) (default: disable
+      --ssl=            SSL mode (require|verify-full|verify-ca|disable) (default: disable)
   -f, --file-per-table  Save each structure to its own .go file.
       --package=        Package name for generated files.
 
