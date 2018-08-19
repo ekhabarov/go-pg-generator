@@ -9,12 +9,6 @@
 			"revisionTime": "2018-03-31T12:42:32Z"
 		},
 		{
-			"checksumSHA1": "4eelJOSLZoDzLuaJvgilOBVNovU=",
-			"path": "github.com/jinzhu/inflection",
-			"revision": "04140366298a54a039076d798123ffa108fff46c",
-			"revisionTime": "2018-03-08T03:36:59Z"
-		},
-		{
 			"checksumSHA1": "s6eyIXpJ7VAU06FM27GcEBM/5lo=",
 			"path": "github.com/lib/pq",
 			"revision": "90697d60dd844d5ef6ff15135d0203f65d2f53b8",
