@@ -8,7 +8,7 @@ import (
 const id = "ID"
 
 func snake2Camel(word string) string {
-	//ID should be always uppercas
+	// ID should be always uppercas
 	words := strings.Split(word, "_")
 	for i, w := range words {
 		if strings.ToLower(w) == strings.ToLower(id) {
@@ -19,8 +19,14 @@ func snake2Camel(word string) string {
 	return strings.Replace(strings.Title(strings.Join(words, " ")), " ", "", -1)
 }
 
+func snake2CamelLower(word string) string {
+	words := strings.Split(word, "_")
+
+	return words[0] + strings.ReplaceAll(strings.Title(strings.Join(words[1:], " ")), " ", "")
+}
+
 func saveToFile(name string, b []byte) error {
-	f, err := os.OpenFile(name+".go", os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0644)
+	f, err := os.OpenFile(name+".go", os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0o644)
 	if err != nil {
 		return err
 	}

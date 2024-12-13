@@ -12,7 +12,7 @@ const (
 )
 
 var (
-	//key - pg type, value - go type
+	// key - pg type, value - go type
 	nonNullableTypes map[string]string = map[string]string{
 		"int2":        "int16",
 		"int4":        "int32",
@@ -69,8 +69,8 @@ var (
 func getStruct(tab string, cols []*column) string {
 	var body string
 	for _, c := range cols {
-		body += fmt.Sprintf("\t%s %s `db:%s` // sqltype: %s\n",
-			snake2Camel(c.Name), convertType(c), c.Name, c.Type)
+		body += fmt.Sprintf("\t%s %s `db:%q json:%[4]q` // sqltype: %s\n",
+			snake2Camel(c.Name), convertType(c), c.Name, snake2CamelLower(c.Name), c.Type)
 	}
 
 	return fmt.Sprintf(tpl, snake2Camel(tab), body)

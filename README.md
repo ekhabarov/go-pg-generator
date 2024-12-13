@@ -11,7 +11,7 @@ make build
 
 ## Dependencies
 ### For generated files
-`import "gopkg.in/guregu/null.v3"`
+`import "github.com/guregu/null/v5"`
 Provides support for `null` values.
 
 `import "github.com/satori/go.uuid"`
